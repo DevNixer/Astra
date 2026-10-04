@@ -1,0 +1,52 @@
+# Entornos virtuales
+venv/
+.venv/
+env/
+
+# Configuración y secretos locales
+.env
+.env.*
+!.env.example
+!.env.sample
+*.pem
+*.p12
+*.pfx
+*.key
+
+# Caché de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.coverage
+htmlcov/
+
+# Modelos descargados o generados (pueden ser muy pesados)
+**/models/
+
+# Archivos generados y datos locales
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+*.db
+*.sqlite
+*.sqlite3
+build/
+dist/
+*.egg-info/
+
+# Directorios de IDEs
+.vscode/
+.idea/
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,7 @@
+vosk>=0.3.45
+sounddevice>=0.4.6
+soundfile>=0.12.1
+piper-tts>=1.2.0
+openwakeword>=0.6.0
+onnxruntime>=1.16.0
+numpy>=1.26.0
