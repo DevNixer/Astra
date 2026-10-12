@@ -1,6 +1,7 @@
 import sys
 from audio.tts_engine import speak
 from audio.voice_listener import VoiceListener
+from audio.wake_word import WakeWordListener
 
 def print_banner():
     print("=" * 50)
@@ -10,12 +11,14 @@ def print_banner():
     print("  /exit           - Sale de la aplicación.")
     print("  /speak <texto>  - Hace que Astra hable el texto indicado.")
     print("  /listen         - Activa el micrófono para hablarle.")
+    print("  /wakeword       - Activa la escucha de la palabra clave.")
     print("  /help           - Muestra esta ayuda.")
     print("=" * 50)
 
 def main():
     print_banner()
     voice_listener = None
+    wake_word_listener = None
 
     while True:
         try:
@@ -59,6 +62,17 @@ def main():
                         print(f"[Astra] > Entendido: '{recognized_text}'")
                     continue
 
+                elif command == "/wakeword":
+                    if wake_word_listener is None:
+                        try:
+                            wake_word_listener = WakeWordListener()
+                        except Exception as e:
+                            print(f"[Sistema] No se pudo cargar el detector de la Wake Word: {e}")
+                            continue
+
+                    print("[Sistema] Activando escucha de Wake Word. Llama a Astra para activarla.")
+                    wake_word_listener.listen()
+                    continue
                 
                 else:
                     print(f"[Sistema] Comando desconocido '{command}'. Escribe /help para ver los ayudas.")
