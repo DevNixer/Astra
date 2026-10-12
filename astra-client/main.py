@@ -1,5 +1,6 @@
 import sys
 from audio.tts_engine import speak
+from audio.voice_listener import VoiceListener
 
 def print_banner():
     print("=" * 50)
@@ -8,11 +9,13 @@ def print_banner():
     print("Escribe texto o usa comandos:")
     print("  /exit           - Sale de la aplicación.")
     print("  /speak <texto>  - Hace que Astra hable el texto indicado.")
+    print("  /listen         - Activa el micrófono para hablarle.")
     print("  /help           - Muestra esta ayuda.")
     print("=" * 50)
 
 def main():
     print_banner()
+    voice_listener = None
 
     while True:
         try:
@@ -41,6 +44,21 @@ def main():
                         continue
                     speak(args)
                     continue
+                
+                elif command == "/listen":
+                    if voice_listener is None:
+                        try:
+                            voice_listener = VoiceListener()
+                        except Exception as e:
+                            print(f"[Sistema] No se pudo iniciar la escucha de voz: {e}")
+                            continue
+                    
+                    # Escuchar por el micro y obtener texto
+                    recognized_text = voice_listener.listen_once()
+                    if recognized_text:
+                        print(f"[Astra] > Entendido: '{recognized_text}'")
+                    continue
+
                 
                 else:
                     print(f"[Sistema] Comando desconocido '{command}'. Escribe /help para ver los ayudas.")
