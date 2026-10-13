@@ -17,10 +17,17 @@ def speak(text: str, model_path: str = "models/piper/es_AR-daniela-high.onnx"):
     temp_wav.close()
 
     try:
-        # inicio Piper
-        cmd = f'echo "{text}" | piper --model "{model_path}" --length-scale 1.2 --output_file "{temp_wav.name}"'
-        
-        result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+        result = subprocess.run(
+            [
+                "piper",
+                "--model", str(model_path),
+                "--length-scale", "1.2",
+                "--output_file", str(temp_wav.name),
+            ],
+            input=text + "\n",
+            text=True,
+            capture_output=True,
+        )
         
         if result.returncode != 0:
             print(f"[Error TTS] Fallo al generar la voz: {result.stderr}")
